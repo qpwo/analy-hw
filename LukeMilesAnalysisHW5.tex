@@ -1,0 +1,259 @@
+\documentclass{article}
+
+\usepackage[in]{fullpage} % small margins
+\usepackage{amssymb} % for naturals and reals
+\usepackage{enumerate} % for non-bullet lists
+\usepackage{amsmath} % for left aligned text on equations
+
+\setlength{\parindent}{0pt}
+%\pagenumbering{gobble}
+\linespread{1.5}
+
+\title{Analysis HW 5}
+\author{Luke Miles}
+
+\begin{document}
+\raggedright
+
+\makeatletter
+\textbf{\@title\ - \@author\ - \@date}
+\makeatother
+
+\hrulefill
+
+\textbf{Exercise 3.5 - 5}: If $x_n:=\sqrt{n}$, show that $(x_n)$ satisfies
+$\lim |x_{n+1}-x_n| = 0$, but that it is not a Cauchy sequence.
+
+\underline{\textit{Solution}}: First, we will show the limit. Let
+$\varepsilon > 0$ and $n > 1/\varepsilon^2$ Then
+\[\left| \sqrt{n+1} - \sqrt{n} \right|
+  %= \sqrt{n+1} - \sqrt{n}
+  = \left(\sqrt{n+1} - \sqrt{n}\right)
+  \frac{\sqrt{n+1} + \sqrt{n}}{\sqrt{n+1} + \sqrt{n}}
+  = \frac{n+1-n}{\sqrt{n+1} + \sqrt{n}}
+  = \frac{1}{\sqrt{n+1} + \sqrt{n}}
+  < \frac{1}{\sqrt{n}}
+  < \frac{1}{\sqrt{1/\varepsilon^2}}
+  = \varepsilon.
+\]
+
+Now, for contradiction, suppose that $(x_n)$ is Cauchy. Then for any
+$\varepsilon > 0$ there is some number $H$ so that for any $n,m > H$,
+we have $|x_n - x_m| < \varepsilon$. To make things easier we will
+assume that $H > \varepsilon$ but note that this situation can be easily
+dealt with . Anyways, suppose such an $H$ exists. Then let $m = H^2$ and
+$n = 4H^2$. So we have
+\[|x_n-x_m| = |\sqrt{4H^2}-\sqrt{H^2}| = 2H - H = H > \varepsilon.\]
+This contradiction shows that the sequence cannot be Cauchy.
+\hfill $\blacksquare$
+
+\hrulefill
+
+\textbf{Exercise 3.5 - 6}: Let $p$ be a given natural number. Give an
+example of a sequence $(x_n)$ that is not a Cauchy sequence, but that
+satisfies $\lim |x_{n+p} - x_n| = 0$.
+
+\underline{\textit{Solution}}: Let $x_n = n$ modulus $p$. Here, any two
+terms $p$ apart in index are 0 apart in value, but otherwise they clearly
+do not get arbitrarily close. Let $\varepsilon := 1/2$ then for any
+$H(\varepsilon)$, and any $n > H(\varepsilon)$,
+$|x_{n+1}-x_n| = 1 > \varepsilon$. \hfill $\blacksquare$
+
+\hrulefill
+
+\textbf{Exercise 3.5 - 11}: If $y_1<y_2$ are arbitrary real numbers and
+$y_n := \frac{1}{3}y_{n-1} + \frac{2}{3}y_{n-2}$ for $n>2$, show that
+$(y_n)$ is convergent. What is its limit?
+
+\underline{\textit{Solution}}: This is a contractive sequence:
+\[|y_{n+2}-y_{n+1}|
+  = \left| \left( \frac{1}{3}y_{n+1}+\frac{2}{3}y_n \right)
+  - y_{n+1} \right|
+  = \frac{2}{3} |y_{n+1}-y_n|
+\]
+
+Contractive sequences converge. This one converges to $(2/5)y_1+(3/5)y_2$.
+This can be verified with monotone-ness and sup and inf on the odd and even
+terms of the sequence.
+
+\hrulefill
+
+\textbf{Exercise 3.6 - 5}: Is the sequence $a_n := n \sin n$ properly
+divergent?
+
+\underline{\textit{Solution}}: No, $(a_n)$ is not properly divergent.
+Suppose that $(a_n)$ trends towards $+\infty$. Then for any
+$\alpha \in \mathbb{R}$ there exists a $K(\alpha)$ so that for any
+$n > K(\alpha)$, $a_n > \alpha$. Let $\alpha > 0$. Then for at least
+one of $\{K+2, K+4, K+6\}$, we know $a_n = n \sin n$ is negative and
+therefore less than $\alpha$. A similar argument shows $(a_n)$ does not tend
+towards $-\infty$. \hfill $\blacksquare$
+
+\hrulefill
+
+\textbf{Exercise 3.6 - 8}:
+Investigate the convergence or divergence of the following sequences:
+\begin{enumerate}[(a)]
+  \item $(\sqrt{n^2+2})$: This sequence tends towards $+\infty$. Let
+    $K(\alpha)$ be the smallest integer greater than $\alpha$. Then for
+    any $n \geq K(\alpha)$, $\sqrt{n^2+2} > \sqrt{n^2} = n > \alpha$.
+  \item $(\sqrt{n}/(n^2+1))$: Clearly convergent towards 0.
+    $0 < \sqrt{n}/(n^2+1) < n/(n^2+1) < n/n^2 = 1/n$.
+  \item $(\sqrt{n^2+1}/\sqrt{n})$: Tends towards $+\infty$. Let
+    $K(\alpha) > \alpha^2$. Then for any $n > K(\alpha)$,
+    $\sqrt{n^2+1}/\sqrt{n} > \sqrt{n^2}/\sqrt{n}
+    = \sqrt{n} > \sqrt{\alpha^2} = \alpha$.
+  \item $(\sin \sqrt{n})$: This sequence is neither convergent nor
+    properly divergent. It is not convergent because if $\varepsilon := 1$
+    then for any $n$ there exists a $k$ such that
+    $|\sin \sqrt n - \sin \sqrt{n+k}| > 1$. It is not properly divergent
+    because it never exceeds +1 or -1.
+\end{enumerate}
+
+\hrulefill
+
+\textbf{Exercise 3.7 - 3}: Use partial fraction to show the following
+summations.
+
+\begin{enumerate}[(a)]
+  \item $\sum\limits_{n=0}^\infty \frac{1}{(n+1)(n+2)} = 1$:
+    \begin{flalign*}
+      &&s_k :&= \sum_{n=0}^k \frac{1}{(n+1)(n+2)} &\\
+      && &= \sum_{n=0}^k \frac{1}{n+1} - \frac{1}{n+2} &\\
+      && &= \left( \sum_{n=0}^k \frac{1}{n+1} \right)
+      - \left( \sum_{n=0}^k \frac{1}{n+2} \right) &\\
+      && &= \left( \sum_{n=0}^k \frac{1}{n+1} \right)
+      - \left( \sum_{n=1}^{k+1} \frac{1}{n+1} \right) &\\
+      && &= \frac{1}{1} - \frac{1}{k+2} &
+    \end{flalign*}
+    Clearly $s_k$ converges to 1.
+  \item $\sum\limits_{n=0}^\infty \frac{1}{(\alpha+n)(\alpha+n+1)}
+    = \frac{1}{\alpha} > 0$, if $\alpha > 0$.
+    \begin{flalign*}
+      &&s_k :&= \sum_{n=0}^k \frac{1}{(\alpha+n)(\alpha+n+1)} &\\
+      && &= \sum_{n=0}^k \frac{1}{\alpha+n} - \frac{1}{\alpha+n+1} &\\
+      && &= \left( \sum_{n=0}^k \frac{1}{\alpha+n} \right)
+      - \left( \sum_{n=0}^k \frac{1}{\alpha+n+1} \right) &\\
+      && &= \left( \sum_{n=0}^k \frac{1}{\alpha+n} \right)
+      - \left( \sum_{n=1}^{k+1} \frac{1}{\alpha+n} \right) &\\
+      && &= \frac{1}{\alpha} - \frac{1}{\alpha+k+1} &
+    \end{flalign*}
+    Clearly $s_k$ converges to $1/\alpha$.
+  \item $\sum\limits_{n=1}^\infty \frac{1}{n(n+1)(n+2)} = \frac{1}{4}$.
+    \begin{flalign*}
+      && s_k :&= \sum_1^k \frac{1}{n(n+1)(n+2)} &\\
+      && &= \sum_1^k \frac{1}{2n} - \frac{1}{n+1} + \frac{1}{2(n+2)} &\\
+      && &= \frac{1}{2} \left( \sum_1^k \frac{1}{n} \right) - \left( \sum_1^k \frac{1}{n+1} \right) + \frac{1}{2} \left( \sum_1^k \frac{1}{n+2} \right) &\\
+      && &= \frac{1}{2} \left( \sum_1^k \frac{1}{n} \right) - \left( \sum_2^{k+1} \frac{1}{n} \right) + \frac{1}{2} \left( \sum_3^{k+2} \frac{1}{n} \right) &\\
+      && &= \left(\frac{1}{2}\right) + \left(\frac{1}{4} - \frac{1}{2}\right) + \left(\frac{-1}{k+1} + \frac{1}{2(k+1)}\right) + \left(\frac{1}{2(k+2)}\right) &\\
+      && &= \frac{1}{4} - \frac{1}{2(k+1)} + \frac{1}{2(k+2)} &
+    \end{flalign*}
+    Clearly $s_k$ converges to $1/4$.
+\end{enumerate}
+
+\hrulefill
+
+\textbf{Exercise 3.7 - 13}: If $\sum a_n$ with $a_n>0$ is convergent, then
+is $\sum \sqrt{a_n a_{n+1}}$ always convergent? Either prove it or give a
+counterexample.
+
+\underline{\textit{Solution}}: Proving it by contrapositive. Suppose that
+$\sum \sqrt{a_n a_{n+1}}$ does not converge. Then neither does
+$\sum a_n a_{n+1}$, and by the Cauchy-Schwarz inequality, neither does
+$\left(\sum a_n \right) \left( \sum a_{n+1} \right)$. But that last
+expression must be finite because it is the product of two finite numbers!
+Hence we have a contradiction and $\sum \sqrt{a_n a_{n+1}}$ must converge.
+\hfill $\blacksquare$
+
+\hrulefill
+
+\textbf{Exercise 3.7 - 15}: Let $(a(n))$ be a decreasing sequence of
+strictly positive numbers and let $s(k) := \sum_{n=1}^k a(n)$. First show
+that \[\frac 1 2 (a(1)+2a(2)+\dots+2^na(2^n)) \leq s(2^n)
+\leq (a(1)+2a(2)+\dots+2^{n-1}a(2^{n-1})) + a(2^n),\] then use this result
+to show that $\sum_{n=1}^\infty a(n)$ converges if and only if
+$\sum_{n=1}^\infty 2^n a(2^n)$ converges.
+
+\underline{\textit{Solution}}: TODO
+
+\hrulefill
+
+\textbf{Exercise 3.7-18}: Show that if $c>1$, then the following series are
+convergent: 
+\begin{enumerate}[(a)]
+  \item $\sum \frac{1}{n (\ln n)^c}$: \textit{I looked at the hint in the
+    back of the book.} The Cauchy Condensation Test states that $\sum x_n$
+    converges if and only if $\sum 2^n x_{2^n}$ converges.
+    \[\sum 2^n x_{2^n}
+      = \sum \frac{2^n}{2^n (\ln 2^n)^c}
+      = \sum \frac{1}{n^c} \frac{1}{(\ln 2)^c}
+      = \frac{1}{(\ln 2)^c} \sum \frac{1}{n^c}.
+    \]
+    The last expression clearly only converges for $c > 1$.
+  \item $\sum \frac{1}{n (\ln n) (\ln \ln n)^c}$: We will apply the cauchy
+    condensation test twice.
+    \begin{flalign*}
+      \text{Once:} && y_n := 2^n x_{2^n} &= \sum \frac{2^n}{2^n (\ln 2^n) (\ln \ln 2^n)^c} &\\
+      && &= \sum \frac{1}{n \times \ln 2 \times (\ln (n \times \ln 2))^c} &\\
+      && &= \sum \frac{1}{n \times \ln 2 \times (\ln n + \ln \ln 2)^c} &\\
+      \text{Twice:} && z_n := 2^n y_{2^n} &= \sum \frac{2^n}{2^n \times \ln 2 \times (\ln 2^n + \ln \ln 2)^c} &\\
+      && &= \sum \frac{1}{\ln 2 \times (n \times \ln 2 + \ln \ln 2)^c} &\\
+      && &= \frac{1}{\ln 2} \sum \frac{1}{(n \times \ln 2 + \ln \ln 2)^c} &\\
+      && &< \frac{1}{\ln 2} \sum \frac{1}{(n \times \ln 2)^c} &\\
+      && &= \frac{1}{(\ln 2)^{c+1}} \sum \frac{1}{n^c} &
+    \end{flalign*}
+    Again, this converges for any $c > 1$.
+\end{enumerate}
+
+\hrulefill
+
+\textbf{Exercise 4.1 - 7}: Show that $\lim\limits_{x \rightarrow c} x^3=c^3$
+for any $c \in \mathbb{R}$.
+
+\underline{\textit{Solution}}: Let $\varepsilon > 0$. Choose
+$\delta := \min \{1, \varepsilon/(2c^2+4|c|+1)\}$. Then
+\[|x^3-c^3| = |x^2+cx+c| \times |x-c| < ((|c|+1)^2+c^2+|c|) |x-c|
+  = (2c^2+4|c|+1) |x-c| < (2c^2+4|c|+1) \frac{\varepsilon}{2c^2+4|c|+1}
+  = \varepsilon.
+\]
+And since we have a way of choosing $\delta$ for any arbitrary assigned
+$\varepsilon$, we know the limit is correct. \hfill $\blacksquare$
+
+\hrulefill
+
+\textbf{Exercise 4.1 - 11}: Use the definition of limit to prove the
+following:
+
+\begin{enumerate}[(a)]
+  \item $\lim\limits_{x \rightarrow 3} \frac{2x+3}{4x-9}=3$: Let
+    $\varepsilon>0$, define $f(x):=(2x+3)/(4x-9)$, choose
+    $\delta := \min \{1, 17\varepsilon/10\}$, and bound
+    $2<x<4$. Then
+    \[
+      |f(x)-3|
+      = \left| \frac{2x+3}{4x+9} - 3 \right|
+      = \left| \frac{-10x+30}{4x+9} \right|
+      = |x - 3| \times \left| \frac{10}{4x+9} \right|
+      < |x - 3| \times \frac{10}{17}
+      < \frac{17 \varepsilon}{10} \times \frac{10}{4\times2+9}
+      < \frac{17 \varepsilon}{10} \times \frac{10}{17}
+      = \varepsilon
+    \]
+    So since $f(x)$ can get arbitrarily close to 3 as $x$ gets close to 3,
+    we can be sure this limit is correct.
+    \hfill \small $\blacksquare$ \normalsize
+  \item $\lim\limits_{x \rightarrow 6} \frac{x^2-3x}{x+3}=2$: Let
+    $\varepsilon > 0$, define $f(x) := (x^2-3x)/(x+3)$, choose
+    $\delta := \min \{1, \epsilon\}$, and bound $5<x<7$. Then
+    \[|f(x)-2|
+      = \left| \frac{x^2-3x}{x+3} -2 \right|
+      = \left| \frac{x^2-5x-6}{x+3} \right|
+      = |x-6| \times \left| \frac{x+1}{x+3} \right|
+      < |x-6| \times \frac{7+1}{5+3}
+      = |x-6|
+      < \varepsilon
+    \]
+    Again, this shows the limit. \hfill \tiny $\blacksquare$ \normalsize
+\end{enumerate}
+
+\end{document}

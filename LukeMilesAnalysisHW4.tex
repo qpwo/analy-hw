@@ -1,0 +1,308 @@
+\documentclass{article}
+
+\usepackage[cm]{fullpage} % small margins
+\usepackage{amssymb} % for naturals and reals
+\usepackage{enumerate} % for non-bullet lists
+\usepackage{amsmath} % for left aligned text on equations
+
+\setlength{\parindent}{0pt}
+%\pagenumbering{gobble}
+\linespread{1.5}
+
+\title{Analysis HW 4}
+\author{Luke Miles}
+
+\begin{document}
+\raggedright
+
+\makeatletter
+\textbf{\@title\ - \@author\ - \@date}
+\makeatother
+
+\hrulefill
+
+\textbf{Exercise 3.2 - 6}: Find the limits of the following sequences:
+
+\begin{enumerate}[(a)]
+  \item $ (2+1/n)^2$
+  \item $ (-1)^n / (n + 2)$
+  \item $ (\sqrt{n} - 1) / (\sqrt{n} + 1)$
+  \item $ (n+1)/(n\sqrt{n})$
+\end{enumerate}
+
+\underline{\textit{Solution}}:
+ $\varepsilon$ is an arbitrary positive number. For each limit, it is
+sufficient to show that there exists an $n$ such that the $n$'th element
+of the sequence is within $\varepsilon$ of the limit. 
+
+\begin{enumerate}[(a)]
+
+  \item The limit is 4. Let $n > 3 / \varepsilon$.  Then
+    $
+    \left| (2 + 1/n) ^2 - 4 \right|
+    = \left| 2/n + 1/n^2 \right|
+    = 2/n + 1/n^2
+    < 2/n + 1/n
+    = 3/n
+    < 3 / (3 / \varepsilon)
+    = \varepsilon
+    $.
+
+  \item The limit is 0. Let $n > 1 / \varepsilon$. Then
+    $
+    \left| (-1)^n/(n+2) - 0 \right|
+    = 1/(n+2)
+    < 1/n
+    < 1/(1/\varepsilon)
+    = \varepsilon
+    $.
+
+  \item The limit is 1. Let $n > 4 / \varepsilon ^ 2$. Then
+    $
+    \left| (\sqrt{n}-1) / (\sqrt{n} + 1) - 1 \right|
+    = \left| -2/(\sqrt{n} + 1) \right|
+    = 2 / (\sqrt{n} + 1)
+    < 2/\sqrt{n}
+    < 2 / \sqrt{4 / \varepsilon ^ 2}
+    = \varepsilon
+    $.
+
+  \item The limit is 0. Let $n > 4 / \varepsilon ^ 2$. Then
+    $
+    | (n + 1) / (n \sqrt{n}) |
+    = (n + 1) / (n \sqrt{n})
+    = n / (n \sqrt{n}) + 1 / (n \sqrt{n})
+    = 1 / \sqrt{n} + 1 / (n \sqrt{n})
+    < 1 / \sqrt{n} + 1 / \sqrt{n}
+    = 2 / \sqrt{n}
+    < 2 / \sqrt{4 / \varepsilon ^ 2}
+    = \varepsilon
+    $.
+\end{enumerate}
+
+\hrulefill
+
+\textbf{Exercise 3.2 - 9}: Let $y_n := \sqrt{n + 1} - \sqrt{n}$ for $n \in
+\mathbb{N}$. Show that $(\sqrt{n}y_n)$ converges. Find the limit.
+
+\underline{\textit{Solution}}:
+\textit{(With a hint from Alex Malone.)}
+Define $x_n := \sqrt{n}y_n = \sqrt{n^2+n} - n$. For any $n$,
+\begin{flalign*}
+  && n &< n + 1/4 &\\
+  \text{hence,}
+  && n^2 + n &< n^2 + n + 1/4 &\\
+  \text{hence,}
+  && \sqrt{n^2+n} &< n + 1/2 &\\
+  \text{hence,}
+  && \sqrt{n^2+n} - n &< 1/2. &
+\end{flalign*}
+So $x_n$ is bounded by above by 1/2. Also, for any $n \in \mathbb{N}$
+(naturals start with 1, right?) we have
+\begin{flalign*}
+  && 0 &< 7n^2+4n-4 &\\
+  \div -4n^2 && 0 &> -7/4-1/n+1/n^2 &\\
+  &&n^2 + n &> n^2 + n -7/4 -1/n +1/n^2 = (n + 1/2 - 1/n)^2 &\\
+  &&\sqrt{n^2 + n} &> n +1/2 -1/n &\\
+  &&\sqrt{n^2+n} - n &> 1/2 - 1/n &
+\end{flalign*}
+So $x_n$ is bounded below by $1/2 - 1/n$, which clearly converges to 1/2.
+By the squeeze theorem, $x_n$ converges to 1/2 as well.
+\hfill $\blacksquare$
+
+\hrulefill
+
+\textbf{Exercise 3.2 - 13}: \textit{(With assistance from Niven Achenjang)}
+If $a > 0, b > 0$, show that $\lim(\sqrt{(n + a) (n + b)} - n) = (a + b)/2$
+
+\underline{\textit{Solution}}: WLOG, suppose $a \leq b$. Then by the
+harmonic-mean geometric-mean arithmetic-mean inequality, we have
+
+\[ n+a \leq \frac{2}{\frac{1}{n+a} + \frac{1}{n+b}}\leq \sqrt{(n+a)(n+b)} \leq \frac{(n+a)+(n+b)}{2} \leq n+b \]
+\[a \leq \frac{2}{\frac{1}{n+a} + \frac{1}{n+b}} - n \leq \sqrt{(n+a)(n+b)} - n \leq \frac{a + b}{2} \leq b \]
+
+Looking at the second and third terms, we get a lower bound:
+\begin{flalign*}
+  && & \lim \left( \frac{2}{\frac{1}{n+a} + \frac{1}{n+b}} - n \right) &\\
+  && &= \lim \left( \frac{2(n+a)(n+b)}{(n+b) + (n+a)} - n \right) &\\
+  && &= \lim \left( \frac{2n^2 + 2n(a+b) + 2ab}{2n + a + b} - n \right) &\\
+  && &= \lim \left( \left( \frac{2n^2}{2n+a+b} - n \right) + \frac{2n(a+b)}{2n+a+b} + \frac{2ab}{2n+a+b} \right) &\\
+  && &= \lim \left( \frac{2n^2}{2n+a+b} - n \right) + \lim \frac{2n(a+b)}{2n+a+b} + \lim \frac{2ab}{2n+a+b} &\\
+  && &= \lim \frac{2n^2 - n(2n+a+b)}{2n+a+b} + \lim \frac{2n(a+b)}{2n+a+b} + \lim \frac{2ab}{2n+a+b} &\\
+  && &= \lim \frac{-n(a+b)}{2n+a+b} + \lim \frac{2n(a+b)}{2n+a+b} + \lim \frac{2ab}{2n+a+b} &\\ 
+  && &= \frac{-(a+b)}{2} + (a+b) + 0 &\\
+  && &= \frac{a+b}{2} &
+\end{flalign*}
+
+Looking at the third and fourth terms, we get an upper bound of
+$(a+b)/2$ as well. So, by the squeeze theorem, the limit of 
+$(\sqrt{(n + a) (n + b)} - n)$ is $(a + b)/2$.
+\hfill $\blacksquare$
+
+\hrulefill
+
+\textbf{Exercise 3.2 - 14}: Use the squeeze theorem to determine the limits
+of (a) $n^{1/n^2}$ and (b) $(n!)^{1/n^2}$.
+
+\underline{\textit{Solution}}:
+
+\begin{enumerate}[(a)]
+
+  \item Define $y_n:=n^{1/n^2}$. Clearly $y_n$ is at least 1 for any n.
+    So $y_n$ is bounded below by the constant sequence $x_n:=1$.
+    Now define the sequence $z_n := 1 + 1/n$. Note that
+    \[
+      z_n^{n^2}
+      = (1 + \frac{1}{n})^{n^2}
+      = 1 + {n^2 \choose 1} \frac{1}{n} + [\textrm{POSITIVE JUNK}]
+      > 1 + {n^2 \choose 1} \frac{1}{n}
+      = 1 + n
+      > n
+    \]
+    It follows that $z_n = 1 + 1/n > n^{1/n^2} = y_n$ for all n.
+    And since $\lim x_n = 1 = \lim z_n$, it is also true that
+    $\lim y_n = 1$.
+
+  \item Let $y_n := (n!)^{1/n^2}$. Again, $y_n$ is bounded below by
+    $x_n := 1$. This time let $z_n := n^{1/n}$. Note that
+    \[
+      z_n^n
+      = (n^{1/n})^n
+      = n^{1/n} \times n^{1/n} \times \dots \times n^{1/n}
+      > 1^{1/n} \times 2^{1/n} \times \dots \times n^{1/n}
+      = (n!)^{1/n}
+      = y_n^n
+    \]
+    Hence $z_n > y_n$ for all $n$. And since we've shown in class that
+    $\lim z_n = \lim n^{1/n} = 1 = \lim x_n$, we can say that
+    $\lim y_n = \lim (n!)^{1/n^2} = 1$.
+
+\end{enumerate}
+
+\hrulefill
+
+\textbf{Exercise 3.3 - 4}:
+Let $x_1 := 1$ and $x_{n+1} := \sqrt{2 + x_n}$ for $n \in \mathbb{N}$. Show
+that $(x_n)$ converges and find the limit.
+
+\underline{\textit{Solution}}: We can show that $(x_n)$ converges to 2 by
+showing it is (i) bounded above by 2, and (ii) monotone increasing. Once we
+know it converges, 2 is the limit if there is (iii) no lesser upper bound.
+
+\begin{enumerate}[(i)]
+  \item $x_1 = 1 < 2$. Now suppose that for all $n \leq k$, we have
+    $x_n < 2$. Then \[ x_{k+1} = \sqrt{2 + x_k} < \sqrt{2+2} = 2 \]
+  \item In general, $\sqrt{m + a} > a$ for all $0 < a < m^2-m$.
+    In this case $\sqrt{2 + x_n} > x_n$ holds for any
+    $0 < x_n < 2^2 - 2 = 2$, which is all $x_n$ by (i).
+    So $x_{n+1} > x_n$ for all $n$.
+  \item Suppose $L := \sup (x_n)$ is less than 2.
+    Then $L = 2 - \varepsilon_1$ for some $\varepsilon_1 > 0$.
+    We also know that for any $\varepsilon_2 > 0$, there exists a $k$
+    such that $x_k > L - \varepsilon_2$. Let $\varepsilon_2
+    := \varepsilon_1/10$. Then $x_k > L - \varepsilon_1/10$ and
+    $x_{k+1} > \sqrt{2 + L - \varepsilon_1/10}
+    = \sqrt{(2 - \varepsilon_1/10) + L}
+    > \sqrt{L + L}
+    > L$. Contradiction! The least upper
+    bound of $(x_n)$ must be 2.
+\end{enumerate}
+
+\hrulefill
+
+\textbf{Exercise 3.3 - 5}: Let $y_1:=\sqrt{p}$, where $p > 0$, and
+$y_{n+1} := \sqrt{p+y_n}$. Show that $(y_n)$ converges and find the limit.
+
+\underline{\textit{Solution}}: \textit{We've shown in class that the limit
+of a recursive sequence is a fixed point under it. I don't think this
+occurs in the book at all, so I'm going to use it.}
+
+If $y_n$ converges, then $\lim y_n = y$ and $y$ is a fixed point in the
+sequence:
+\begin{flalign*}
+  && y &= \sqrt{p + y} &\\
+  && y^2 &= p + y &\\
+  && y^2 - y - p &= 0 &\\
+  \text{by the quadratic equation}
+  && y &= \frac{1}{2}(1 \pm \sqrt{1 + 4p}) &
+\end{flalign*}
+
+Rejecting the negative result, we have $y = \frac{1}{2}(1 + \sqrt{1 + 4p})$.
+\hfill $\blacksquare$
+
+\hrulefill
+
+\textbf{Exercise 3.3 - 11}: Let $x_n := 1/1^2 + 1/2^2 + \dots + 1/n^2$
+for each $n \in \mathbb{N}$. Prove that $(x_n)$ is increasing and bounded,
+and hence converges.
+
+\underline{\textit{Solution}}: $x_n$ is obviously increasing. Now note that
+for $k \geq 2$, $1/k^2 \leq 1/(k(k-1)) = 1/(k-1) - 1/k$. Then
+\begin{flalign*}
+  && x_n &= 1/1^2 + 1/2^2 + 1/3^2 + \dots + 1/(n-1)^2 + 1/n^2 &\\
+  && &\leq 1 + (1/1 - 1/2) + (1/2 - 1/3) + \dots + (1/(n-2) - 1/(n-1))
+  + (1/(n-1) - 1/n) &\\
+  && &= 1 + 1 + (-1/2 + 1/2) + (-1/3 + 1/3) + \dots + (-1/(n-2)
+  + 1/(n-2)) + (-1/(n-1) + 1/(n-1)) + 1/n &\\
+  && &= 2 + 1/n &
+\end{flalign*}
+
+and hence $x_n$ is certainly at most 3. \hfill $\blacksquare$
+
+\hrulefill
+
+\textbf{Exercise 3.4 - 10}: Let $(x_n)$ be a bounded sequence and for each
+$n \in \mathbb{N}$ let $s_n := \sup \{ x_k : k \geq n \}$ and
+$S := \inf \{ s_n \}$. Show that there exists a subsequence that converges
+to S.
+
+\underline{\textit{Solution}}: First note that $(s_n)$ is a decreasing
+sequence and hence it must converge to $S$. Now remember the definition of
+peaks we used in class. Let $P_k$ be the number of peaks in $(x_n)$ for
+$n \geq k$. Choose a $k$ large enough so that $P_k$ is either 0 or
+$\infty$. If $P_k = 0$, then all the $s_n$ for $n \geq k$ are equal and for
+$\varepsilon>0$, there are infinitely many $x_n$ less than $\varepsilon$
+below S. Let those $x_n$ be the subsequence which converges to $S$.
+If $P_k$ is infinite, then look at the subsequence of just peaks. This is a
+subseq of $s_n$ and hence converges to the same limit $S$.
+\hfill $\blacksquare$
+
+\hrulefill
+
+\textbf{Exercise 3.4 - 12}:
+Show that if $(x_n)$ is unbounded, then there exists a subsequence
+$(x_{n_k})$ such that $\lim(1/x_{n_k})=0$.
+\underline{\textit{Solution}}: Suppose that $(x_n)$ is unbounded because
+it gets arbitrarily large positives. Then let $x_{n_k}$ be the first $x_n$
+at least $k$. Then for $\varepsilon > 0$, let $k > 1/\varepsilon$. Then
+$1/x_{n_k} \leq 1/k < 1/(1/\varepsilon) = \varepsilon$. A similar argument
+shows the limit for $(x_n)$ arbitrarily large negative.
+\hfill $\blacksquare$
+
+\hrulefill
+
+\textbf{Exercise 3.4 - 17}: Alternate the terms of the sequences $(1+1/n)$
+and $(-1/n)$ to obtain the sequence $(x_n)$ given by
+\[(2,-1,3/2,-1/2,4/3,-1/3,5/4,-1/4 \ldots).\]
+Determine (a) $\lim \sup (x_n)$, (b) $\lim \inf (x_n)$,
+(c) $\sup \{x_n\}$, and (d) $\inf \{x_n\}$.
+
+\underline{\textit{Solution}}:
+\begin{enumerate}[(a)]
+  \item $\lim\sup(x_n) = 1$. $\inf V \leq 1$ because for any
+    $\varepsilon > 0$, there are only finitely many values of the form
+    $1+1/n$ greater than $1 + \varepsilon$. $\inf V \geq 1$ because
+    there are infinitely many values of the form $1 + 1/n$ greater than
+    any number less than 1.
+  \item $\lim\inf(x_n) = 0$. $\sup W \geq 0$ because for any
+    $\varepsilon > 0$, there are only finitely many values of the form
+    $-1/n$ less than $-\varepsilon$. $\sup W \leq 0$ because any positive
+    number has infinitely many numbers of the form $-1/n$ less than it.
+  \item $\sup\{x_n\}=2$ because $1+1/n$ is decreasing and for any $n, m$ we
+    know $1+1/n > -1/m$.
+  \item $\inf\{x_n\}=-1$ because $-1/n$ is increasing and for any $n, m$ we
+    know $-1/n < 1+1/m$.
+\end{enumerate}
+
+
+\end{document}

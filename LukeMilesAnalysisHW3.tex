@@ -1,0 +1,272 @@
+\documentclass{article}
+
+\usepackage[cm]{fullpage} % small margins
+\usepackage{amssymb} % for naturals and reals
+\usepackage{enumerate} % for non-bullet lists
+
+\setlength{\parindent}{0pt}
+\pagenumbering{gobble}
+\linespread{1.7}
+
+\title{Analysis HW 3}
+\author{Luke Miles}
+
+\begin{document}
+
+\makeatletter
+\textbf{\@title\ - \@author\ - \@date}
+\makeatother
+
+\hrulefill
+
+Sorry, I'm still pretty new at \LaTeX.
+
+\textbf{Exercise 2.4 - 2}: If $S:=\{1/n - 1/m : n, m \in \mathbb{N}\}$,
+find $\inf S$ and $\sup S$.
+
+\underline{\textit{Solution}}: First, we will show $\inf S = -1$.
+If $-1 = \inf S$, then (i.) $-1$ is a lower bound of $S$,
+and (ii.) there is no lower bound of $S$ greater than $-1$.  
+
+%\begin{itemize}
+\begin{enumerate}[(i)]
+\item Suppose $\exists s < -1$ in $S$.
+Then for some $m, n \in \mathbb{N}$, $s = 1/n - 1/m < -1$.
+Multiplying through by $nm$ yields $m - n < -nm$,
+or equivelantly, $n - m > nm$.
+Add $m$ and factor to get $n > m (n + 1)$, a clear contradiction.
+
+\item Suppose $\exists x > -1$ which is less than every $s$ in $S$. Then
+let $m = 1$ and let $n$ be greater than $1/(x+1)$.
+Then $s = 1/n - 1/m = 1/n - 1 < \frac{1}{1/(x+1)} - 1 = x$. Contradiction.
+\end{enumerate}
+%\end{itemize}
+
+This thoroughly shows that $\inf S = -1$. Now we will show $\sup S = 1$.
+Likewise, we must show that 1 is (i) an upper bound and (ii) there is no
+smaller upper bound.
+
+\begin{enumerate}[(i)]
+\item Suppose $\exists s > 1$ in $S$. Then for some $m, n \in \mathbb{N}$,
+$s = 1/n - 1/m > 1$. Multiplying through by $nm$ yields $m - n > nm$.
+Adding $n$ and factoring yields $m > n (m + 1)$, a contradiction.
+
+\item Now suppose $\exists x < 1$ which is greater than every $s$ in $S$.
+Then let $n = 1$ and let $m$ be greater than $1/(1-x)$.
+Then $s = 1/n - 1/m = 1 - 1/m > 1 - \frac{1}{1/(1-x)} = x$. Contradiction.
+\end{enumerate}
+
+So $\sup S$ is necessarily $1$. $\blacksquare$
+
+\hrulefill
+
+\textbf{Exercise 2.4 - 6}: Let $X$ be a nonempty set and let $f: X
+\rightarrow \mathbb{R}$ have bounded range in $\mathbb{R}$. If $a \in
+\mathbb{R}$, show that [$\sup (a + S) = a + \sup S$] (for any bounded set
+$S$ and any real number $a$) implies that
+
+\centerline{$\sup \{a + f(x) : x \in X\} = a + \sup \{f(x): x \in X\}$.}
+
+Also show that [$\inf (a + S) = a + \inf S$] implies
+
+\centerline{$\inf \{a + f(x) : x \in X\} = a + \inf \{f(x): x \in X\}$.}
+
+\underline{\textit{Solution}}: Let $Y := \{f(x) : x \in X\}$. Note that
+$\sup Y$ must exist because $f$'s range is bounded. Then $\sup \{a +
+f(x) : x \in X\} = \sup \{a + y : y \in Y\} = \sup (a + Y) = a + \sup Y
+= a + \sup \{f(x) : x \in X\}$. A similar argument proves the second
+equation. $\blacksquare$
+
+\hrulefill
+
+\textbf{Exercise 2.4 - 11}: Let $X$ and $Y$ by nonempty sets and let $h: X
+\times Y \rightarrow \mathbb{R}$ have bounded range in $\mathbb{R}$. Let
+$f : X \rightarrow \mathbb{R}$ and $g : Y \rightarrow\mathbb{R}$ be defined
+by $f(x):=\sup \{h(x,y) : y \in Y\}$ and $g(y) := \inf \{h(x,y) : x \in
+X\}$. Prove that $\sup \{g(y) : y \in Y\} \leq \inf \{f(x) : x \in X\}$.
+
+\underline{\textit{Solution}}:
+(For simplicity, we treat the sets as if they include their sup and inf, but
+the arguments hold without this constraint.) Let $x \in X$ and $y \in Y$. Then
+\begin{itemize}
+  \item $h(x,y) \leq f(x)$ This is necessarily the case because $f$ chooses
+    the $y$ that maximizes $h$.
+  \item $g(y) \leq h(x, y)$ This holds because $g$ chooses the $x$ that
+    minimizes $h$.
+\end{itemize}
+Putting these inequalities together yields $g(y) \leq f(x)$ for all
+$x \in X$ and $y \in Y$. Since any element in the range of $g$ is less than
+every element in the range of $f$, this also holds for \textit{the smallest
+element of the range of g} and \textit{the largest element of the range of
+ f}. An equivelant way of saying this:
+$$\sup \{g(y) : y \in Y\} \leq \inf \{f(x) : x \in X\}\ \blacksquare$$
+
+\hrulefill
+
+\textbf{Exercise 2.5 - 2}: If $S \subseteq \mathbb{R}$ is nonempty, show
+that $S$ is bounded if and only if there exists a bounded closed interval
+$I$ such that $S \subseteq I$.
+
+\underline{\textit{Solution}}: 
+($\Rightarrow$) Accept $S$ is bounded. Let $I := [\inf S, \sup S]$. Now
+suppose (for contradiction) that $\exists s \in S$ where $s \notin I$.
+Since $I$ is an interval, $s$ can not be in a ``hole'' in $I$. So $s$ must
+be to the left or right of $I$ on the number line. This contradicts the
+definition of $I$, and hence $I$ be a superset.
+
+($\Leftarrow$) Accept $S$ is a subset of some closed bounded interval I.
+Suppose $S$ is not bounded above. Then for any real $x$, there exists some
+$s \in S$ where $s > x$. This includes $x := \sup I$. Furthermore, $s$ is a
+member of $I$ because $S$ is a subset of $I$. But $s$ can not be a member of
+a set $I$ and greater than its $\sup$!!! This contradiction shows that
+$S$ is bounded above. A similar argument shows $S$ is bounded below.
+$\blacksquare$
+
+\hrulefill
+
+\textbf{Exercise 2.5 - 12}: Give the two binary representations of
+$\frac{3}{8}$ and $\frac{7}{16}$.
+
+\underline{\textit{Solution}}: 
+Every nonzero number has two binary expansions. One has finite length,
+the other has infinite length. This is due to the fact that $$2^{k}
+= \sum_{i=k-1}^{-\infty} 2^i$$ for integer $k$.
+
+
+$\frac{3}{8} = \frac{1}{4} + \frac{1}{8} = 2^{-2} + 2^{-3} = 0.011_2$
+
+$\frac{3}{8} = \frac{1}{4} + \frac{1}{16} + \frac{1}{32} + \frac{1}{64}
++ \dots = 2^{-2} + 2^{-4} + 2^{-5} + 2^{-6} + \dots = {.010111\dots}_2$
+
+$\frac{7}{16} = \frac{1}{4} + \frac{1}{8} + \frac{1}{16}
+= 2^{-2} + 2^{-3} + 2^{-4} = 0.0111_2$ and by the same process as above,
+
+$\frac{7}{16} = {0.0110111111 \dots}_2$
+
+\hrulefill
+
+\textbf{Exercise 2.5 - 17}: What rationals are represented by the periodic
+decimals $1.25\overline{137}$ and $35.14\overline{653}$?
+
+\underline{\textit{Solution}}:
+If an $n$-digit natural number $d_1d_2\dots d_n$ is divided by $n$ ``9's in
+a row,'' then the repeating decimal $0.\overline{d_1d_2\dots d_n}$ is
+produced. This holds even if a reduction is possible. For example,
+$\frac{39}{99} = \frac{13}{33} = 0.\overline{39}$. To produce a
+fraction from an arbitrary decimal, extract the repeating part and add
+it over $n$ 9's in a row to the nonrepeating part. Applying this to the
+first piece of the problem:
+$$1.25\overline{137} = 1.25 + 0.00\overline{137} = \frac{5}{4} +
+\frac{137}{999\times100} = \frac{31253}{24975}$$
+And in the second piece:
+$$35.14\overline{653} = 35.14 + .00\overline{653} = \frac{3514}{100}
++ \frac{653}{999\times100} = \frac{3511139}{99900}$$
+
+\hrulefill
+
+\textbf{Exercise 3.1 - 5} \textit{Use the definition of the limit of a
+sequence to establish the following limits.} It suffices to show in each
+case that, given any positive $\varepsilon$, one can produce an $n$ such
+that the $n$'th term in the sequence is less than $\varepsilon$ away
+from the limit.
+
+\begin{enumerate}[(a)] % (a), (b), (c), ...
+  \item $\lim(\frac{n}{n^2+1})=0$.
+    \underline{\textit{pf}}:
+    Let $\varepsilon > 0$ and $n > 1/\varepsilon$.
+    Then $$\left|\frac{n}{n^2+1} - 0\right|
+    = \frac{n}{n^2+1} < \frac{n}{n^2}
+    = \frac{1}{n} < \frac{1}{1/\varepsilon}
+    = \varepsilon$$
+  \item $\lim(\frac{2n}{n+1}) = 2$.
+    \underline{\textit{pf}}: Let $\varepsilon > 0$. Let
+    $n > \frac{2}{\varepsilon} - 1$.
+    Then $$\left|\frac{2n}{n+1} - 2\right|
+    = \left|\frac{2n}{n+1} - \frac{2(n+1)}{n+1}\right|
+    = \left|\frac{-2}{n+1}\right|
+    = \frac{2}{n+1} < \frac{2}{(2/\varepsilon - 1) + 1}
+    = \varepsilon$$
+  \item $\lim(\frac{3n+1}{2n+5}) = 3/2$.
+    \underline{\textit{pf}}: Let $\varepsilon > 0$ and let
+    $n > \frac{1}{4}(13\frac{1}{\varepsilon} - 5)$.
+    Then $$\left|\frac{3n+1}{2n+5} - \frac{3}{2}\right|
+    = \left|\frac{3n+1}{2n+5} \frac{2}{2} - \frac{3}{2} \frac{2n+5}{2n+5}\right|
+    = \left|\frac{-13}{4n+5}\right|
+    = \frac{13}{4n+5}
+    < \frac{13}{4(\frac{1}{4}(13\frac{1}{\varepsilon} - 5))+5}
+    = \varepsilon$$
+  \item $\lim(\frac{n^2-1}{2n^2+3}) = \frac{1}{2}$.
+    \underline{\textit{pf}}:
+    Let $\varepsilon > 0$ and
+    $n > \sqrt{\frac{1}{4} (1/{\varepsilon} - 6)}$. Then
+    $$\left|\frac{n^2-1}{2n^2+3} - \frac{1}{2}\right|
+    = \left|\frac{-5}{6+4n^2}\right|
+    = \frac{5}{4n^2+6}
+    < \frac{1}{4n^2+6}
+    < \frac{1}{4\sqrt{\frac{1}{4} (1/{\varepsilon} - 6)}^2+6}
+    = \varepsilon$$
+\end{enumerate}
+
+\hrulefill
+
+\textbf{Exercise 3.1 - 7}: Let $x_n := 1/ \ln (n+1)$ for
+$n \in \mathbb{N}$.
+\begin{enumerate}[(a)]
+  \item Use the definition of a limit to show that $\lim(x_n)=0$.
+
+    \underline{\textit{Solution}}: Let $\varepsilon > 0$ and let
+    $n > e^{1/\varepsilon}$. Then
+    $$\left|x_n - 0\right|
+    = \left|\frac{1}{\ln(n+1)}\right|
+    = \frac{1}{\ln(n+1)}
+    < \frac{1}{\ln n}
+    < \frac{1}{\ln (e^{1/\varepsilon})}
+    = \frac{1}{1/\varepsilon}
+    = \varepsilon \ \blacksquare$$
+
+  \item Find a specific value of $n(\varepsilon)$ as required in the
+    definition of limit for each of (i) $\varepsilon = 1/2$,
+    and (ii) $\varepsilon = 1/10$.
+
+    \underline{\textit{Solution}}: If $\varepsilon = 1/2$, then
+    $e^{\frac{1}{\varepsilon}} = e^{\frac{1}{1/2}} = e^2 \approx 7.4$. So
+    $n = 8$ should work. Indeed, $1/(\ln(8+1)) \approx 0.455 < 1/2$.
+    Likewise, if $\varepsilon = 1/10$, then $e^{\frac{1}{\varepsilon}}
+    = e^{\frac{1}{1/10}} \approx 22026.5$. So here we can choose
+    $n = 22027$. $\blacksquare$
+\end{enumerate}
+
+\hrulefill
+
+\textbf{Exercise 3.1-11}: Show that $\lim(1/n-1/(n+1)) = 0$.
+
+\underline{\textit{Solution}}: We've shown in class that for any functions
+$f$ and $g$, $\lim(f(x) - g(x)) = \lim f(x) - \lim g(x)$.
+Hence, $\lim(1/n-1/(n+1)) = \lim (1/n) - \lim (1/(n+1))$.
+And since $\lim f(x) = \lim f(x+1)$ for any
+function f, $\lim(1/n) = \lim(1/(n+1))$.
+So finally we have
+$$\lim\left(\frac{1}{n} - \frac{1}{n+1}\right) = \lim\frac{1}{n} - \lim\frac{1}{n+1}
+= \lim\frac{1}{n} - \lim\frac{1}{n} = 0\ \blacksquare$$
+
+\hrulefill
+
+\textbf{Exercise 3.1 - 17}: Show that $\lim(2^n / n!) = 0$.
+
+\underline{\textit{Solution}}:
+Define a sequence $x_n = 2^n/n!$. Note that $x_4 = 2^4 / 4! = 16/24 = 2/3$.
+Consider $x_k$ for $k > 4$.
+$$x_k = \frac{2^k}{k!}
+= \left( \frac{2}{1} \frac{2}{2} \frac{2}{3} \frac{2}{4} \right)
+\frac{2}{5} \frac{2}{6} \frac{2}{7} \dots \frac{2}{k}
+= \frac{2}{3} \frac{2}{5} \frac{2}{6} \frac{2}{7} \dots \frac{2}{k}
+< \frac{2}{3} \frac{2}{4} \frac{2}{4} \frac{2}{4} \dots \frac{2}{4_{k-4}}
+= \frac{2}{3} \frac{1}{2^{k-4}}$$
+Define the sequence $y_n := 2/(3\times2^{n-4})$ with domain $n > 4$.
+The above shows that $x_n < y_n$. Furthermore, $y_n$ clearly converges to 0.
+We will define another sequence $z_n = 0$. This sequence converges to 0 and
+is strictly less than $x_n$ ($x_n$ is always positive). We now have two
+sequences that surround $x_n$ and both converge to 0, so by the
+squeeze theorem (covered in class), $\lim x_n = 0$. $\blacksquare$
+
+\end{document}
