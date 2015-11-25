@@ -1,0 +1,457 @@
+\documentclass{article}
+
+\usepackage{graphicx} % for loading images
+\usepackage{amssymb} % for naturals, reals, etc
+\usepackage{enumerate} % for non-bullet lists
+\usepackage{amsmath} % for aligning equations
+\usepackage[in]{fullpage} % small margins
+\setlength{\parindent}{0pt} % don't indent paragraphs
+\pagenumbering{gobble} % don't number pages
+\linespread{1.5} % bigger line spacing
+
+\title{Analysis HW 7}
+\author{Luke Miles}
+
+\begin{document}
+\raggedright % right-aligned instead of justified
+\renewcommand{\thefootnote}{\fnsymbol{footnote}} % cool looking footnotes
+
+\makeatletter
+\textbf{\@title\ - \@author\ - \@date}
+\makeatother
+
+\centerline{
+  \includegraphics{Fibonacci}
+  \includegraphics{Fibonacci}
+  \includegraphics{Fibonacci}
+  \includegraphics{Fibonacci}
+  \includegraphics{Fibonacci}
+  \includegraphics{Fibonacci}
+  \includegraphics{Fibonacci}
+  \includegraphics{Fibonacci}
+  \includegraphics{Fibonacci}
+  \includegraphics{Fibonacci}
+}
+
+\hrulefill
+
+\textbf{Exercise 5.4 - 2}: Show that the function $f(x):=1/x^2$ is uniformly
+continuous on $A:=[1,\infty)$, but that it is not uniformly continuous on
+$B:= (0,\infty)$.
+
+\underline{\textit{Solution}}: First we will show that $f$ is uniformly
+continuous on $A$.  Let $\varepsilon>0$ and choose $\delta:=2\varepsilon$.
+Then if $a,b\in A$ and $|a-b|<\delta$ and WLOG $a<b$, we have
+\[
+  |f(a)-f(b)|=\frac1{a^2}-\frac1{b^2}=\frac{b^2-a^2}{a^2b^2}
+  =\frac{b+a}{a^2b^2}(b-a)<2(b-a)<2\delta=\varepsilon.
+\]
+Now we will show that $f$ is not uniformly continuous on $B$. Choose
+$\varepsilon=1$ and let $\delta>0$ and further assume that $\delta<1/3$.
+Choose $a:=\delta,b:=\frac32\delta$, and we get
+\[
+  |f(a)-f(b)|=|f(\delta)-f(\frac32\delta)|
+  =\frac1{\delta^2}-\frac1{\frac94\delta^2}
+  =\frac59\times\frac1{\delta^2}>5>\varepsilon.
+\]
+
+\hrulefill
+
+\textbf{Exercise 5.4 - 7}: If $f(x):=x$ and $g(x):=\sin x$, show that both
+$f$ and $g$ are uniformly continuous on $\mathbb R$, but that their product
+$fg$ is not uniformly continuous on $\mathbb R$.
+
+\underline{\textit{Solution}}:
+\begin{itemize}
+  \item First, $f$ is uniformly continuous:
+    Let $\varepsilon>0$ and choose $\delta:=\varepsilon$. Then
+    \[|f(x)-f(u)|=|x-u|<\delta=\varepsilon.\]
+  \item To see that $g$ is uniformly continuous, notice that
+    $|\sin a-\sin b|<|a-b|$ for all $a,b\in\mathbb R$. This holds because 2
+    triangles drawn in the unit circle always have a greater difference in
+    arc length than in height.
+  \item Finally, $fg$ is not uniformly continuous. Choose $\varepsilon:=1$
+    and let $\delta>0$. Now choose the smallest integer $n$ where
+    $n>|1/\sin(\delta/2)|$. Choose $u:=2n\pi$ and $x:=u+\delta/2$. Then
+    \[
+      |fg(x)-fg(u)|
+      =|(2n\pi+\delta/2)\sin(2n\pi+\delta/2)-(2n\pi)\sin(2n\pi)|
+    \]\[
+      =|(2n\pi+\delta/2)\sin(\delta/2)|
+      >|2n\pi\sin(\delta/2)|
+      >\left|\frac2{\sin(\delta/2)}\pi\sin(\delta/2)\right|
+      =2\pi
+      >\varepsilon
+    \]
+\end{itemize}
+
+\hrulefill
+
+\textbf{Exercise 5.4 - 14}: A function $f: \mathbb R\to\mathbb R$ is said
+to be periodic on $\mathbb R$ if there exists a number $p>0$ such that
+$f(x+p)=f(x)$ for all $x\in\mathbb R$. Prove that a continuous periodic
+function on $\mathbb R$ is bounded and uniformly continuous on $\mathbb R$.
+
+\underline{\textit{Solution}}: Let $f$ be a continuous periodic function on
+$\mathbb R$ with period $p$ and let $I:=[0,p]$. Then
+\begin{itemize}
+  \item the set $f(I)$ must be a closed interval. Now let $x\in\mathbb R$.
+    Then $f(x)=f(a)$ for some $a\in I$, and hence $f$ is bounded everywhere.
+  \item $f$ is uniformly continuous on $I$. By a similar argument, $f$ is
+    uniformly continuous everywhere.
+\end{itemize}
+
+\hrulefill
+
+\textbf{Exercise 5.6 - 8}: Let $f,g$ be strictly increasing on an interval
+$I\subseteq\mathbb R$ and let $f(x)>g(x)$ for all $x\in I$. If
+$y\in f(I)\cap g(I)$, show that $f^{-1}(y)<g^{-1}(y)$.
+
+\underline{\textit{Solution}}: Define $x_f:=f^{-1}(y),x_g:=g^{-1}(y)$.
+Suppose that $x_f\geq x_g$.  Then, because $g$ is strictly increasing,
+$g(x_f)\geq g(x_g)=y=f(x_f)$. Now we have the clear contradiction
+$g(x_f)\geq f(x_f)$.
+\hfill $\blacksquare$
+
+\hrulefill
+
+\textbf{Exercise 5.6 - 10}: Let $I:=[a,b]$ and let $f:I\to\mathbb R$ be
+continuous on $I$. If $f$ has an absolute maximum [respectively, minimum]
+at an interior point $c$ of $I$, show that $f$ is not injective on $I$.
+
+\underline{\textit{Solution}}: WLOG, assume $c$ is an absolute maximum and
+$b>a$. Choose a small enough $\delta$ so that $f$ is increasing over
+$I_1:=(c-\delta,c)$ and decreasing over $I_2:=(c,c+\delta)$. Then
+$S:=f(I_1)\cap f(I_2)$ is either empty or nonempty. If it is nonempty, then
+there exists $a\in I_1,b\in I_2$ so that $f(a)=f(b)$, and hence $f$ is not
+injective. If $S$ is empty, then one of $I_1$ and $I_2$ are constant under
+$f$, and again $f$ is not injective.
+\hfill $\blacksquare$
+
+\hrulefill
+
+\textbf{Exercise 5.6 - 12}: Let $f:[0,1]\to\mathbb R$ be a continuous
+injective function with $f(0)<f(1)$. Show that $f$ is strictly increasing
+on $[0,1]$.
+
+\underline{\textit{Solution}}: Let $a,b\in [0,1]$ with $a<b$. If $f(a)<f(b)$
+we are done, $f(a)=f(b)$ is impossible because $f$ is injective, and so we
+consider $f(a)>f(b)$. Define $I:=[a,b]$ and consider $m:=\max f(I)$.
+Either $m$ is inside $I$, or $m=a$. If $m$ is internal then exercise 5.6 -
+10 shows that $f$ is not injective and we have a contradiction. If $m=a$
+then slide $a$ backwards until $\max I$ is not an endpoint.
+
+%todo: improve this argument
+
+\hrulefill
+
+\textbf{Exercise 6.1 - 1}:
+
+Use the definition to find the derivative of each of the following
+functions:
+\begin{enumerate}[(a)]
+  \item $f(x):=x^3$ for $x\in\mathbb R$? Let $c\in\mathbb R$ and define
+    $L:=3c^2$. Let $\varepsilon>0$ and choose $\delta=\varepsilon/(4c)$.
+    Then
+    \[
+      \left|\frac{f(x)-f(c)}{x-c}-L\right|
+      =\left|\frac{x^3-c^3}{x-c}-3c^2\right|
+      =|x^2+cx+c^2-3c^2|
+      =|x^2+cx-2c^2|
+    \]\[
+      <|(c+\delta)^2+c(c+\delta)-2c^2|
+      =|\delta^2+3c\delta|
+      <|4c\delta|
+      =|4c\frac{\varepsilon}{4c}|
+      =\varepsilon
+    \]
+  \item $g(x):=1/x$ for $x\in\mathbb R,x\not=0$? Let $c\in\mathbb R$ and
+    define $L:=-1/c^2$. Let $\varepsilon>0$ and choose
+    $\delta=(c^3\varepsilon)/(1+c^2\varepsilon)$. Then
+    \[
+      \left|\frac{g(x)-g(c)}{x-c}-L\right|
+      =\left|\frac{1/x-1/c}{x-c}+1/c^2\right|
+      =\left|\frac{x-c}{c^2x}\right|
+      <\left|\frac{(c+\delta)-c}{c^2x}\right|
+    \]\[
+      =\left|\frac{\delta}{c^2x}\right|
+      <\footnote{Assuming $c>0$. Just switch to $c+\delta$ for $c<0$.}
+      \left|\frac{\delta}{c^2(c-\delta)}\right|
+      =\left|\frac{(c^3\varepsilon)/(1+c^2\varepsilon)}
+                  {c^2(c-(c^3\varepsilon)/(1+c^2\varepsilon))}\right|
+      =\varepsilon
+    \]
+  %\item $h(x):=\sqrt x$ for $x>0$? Let $c\in(0,\infty)$ and define
+  %  $L:=1/(2\sqrt c)$. Let $\varepsilon>0$ and choose $\delta=\dots$. Then
+  %  \[
+  %    \left|\frac{h(x)-h(c)}{x-c}-L\right|
+  %    =\left|\frac{\sqrt x-\sqrt c}{x-c}-\frac1{2\sqrt c}\right|
+  %    =\left|\frac{\sqrt c-\sqrt x}{2(c+\sqrt{cx})}\right|
+  %    <\left|\frac{\sqrt c-\sqrt x}{c+\sqrt{cx}}\right|
+  %    <\left|\frac{c-x}{c+\sqrt{cx}}\right|
+  %  \]\[
+  %    <\left|\frac{c-(c+\delta)}{c+\sqrt{cx}}\right|
+  %    =\frac{\delta}{c+\sqrt{cx}}
+  %    <\frac{\delta}{c+\sqrt{c^2+2cx+x^2}}
+  %    =\frac{\delta}{2c+x}
+  %    <\frac{\delta}{3c-\delta}
+  %    <\frac{\delta}{c-\delta}
+  %    =\frac{(c\varepsilon)/(1+\varepsilon)}
+  %          {c-(c\varepsilon)/(1+\varepsilon)}
+  %    =\varepsilon
+  %  \]
+  %\item $k(x):=1/\sqrt x$ for $x>0$? Let $c\in(0,\infty)$ and define
+  %  $L:=-1/(2c\sqrt c)$. Let $\varepsilon>0$ and choose $\delta=\dots$. Then
+  %  \[
+  %    \left|\frac{k(x)-k(c)}{x-c}-L\right|
+  %    =\left|\frac{1/\sqrt x-1/\sqrt c}{x-c}+\frac1{2c\sqrt c}\right|
+  %    =\dots
+  %  \] %todo
+\end{enumerate}
+\textit{Parts c and d were proven unsolvable by Gauss.}
+
+\hrulefill
+
+\textbf{Exercise 6.1 - 4}: Let $f:\mathbb R\to\mathbb R$ be defined by
+$f(x):=x^2$ for $x$ rational, $f(x):=0$ for $x$ irrational. Show that $f$ is
+differentiable at $x=0$, and find $f'(0)$.
+
+\underline{\textit{Solution}}: \textit{With help from hint in back of book.}
+Two in one! The function is differentiable because the following limit
+exists.
+\[
+  \lim_{x\to c}\frac{f(x)-f(c)}{x-c}
+  =\lim_{x\to0}\frac{f(x)-f(0)}{x-0}
+  =\lim_{x\to0}\frac{f(x)}{x}
+  =\footnote{Because $0\leq|f(x)/x|\leq|x|$ for all $x\in\mathbb R$}
+  \lim_{x\to0}x
+  =0
+\]
+
+\hrulefill
+
+\textbf{Exercise 6.1 - 9}: Prove that if $f:\mathbb R\to\mathbb R$ is an
+even function [that is, $f(-x)=f(x)$ for all $x\in\mathbb R$] and has a
+derivative at every point, then the derivative $f'$ is an odd function
+[that is, $f'(-x)=-f'(x)$ for all $x\in\mathbb{R}$]. Also prove that if
+$g:\mathbb R\to\mathbb R$ is a differentiable odd function, then $g'$ is an
+even function.
+
+\underline{\textit{Solution}}: Let $c\in\mathbb{R}$.
+\[
+  f'(-c)
+  =\lim_{x\to-c}\frac{f(x)-f(-c)}{x-(-c)}
+  =\lim_{x\to-c}\frac{f(x)-f(c)}{x+c}
+  =\lim_{x\to c}\frac{f(-x)-f(c)}{-x+c}
+  =\lim_{x\to c}\frac{f(x)-f(c)}{-x+c}
+  =-f'(c)
+\]
+\[
+  g'(-c)
+  =\lim_{x\to-c}\frac{f(x)-f(-c)}{x-(-c)}
+  =\lim_{x\to-c}\frac{f(x)+f(c)}{x+c}
+  =\lim_{x\to c}\frac{f(-x)+f(c)}{(-x)+c}
+  =\lim_{x\to c}\frac{-f(x)+f(c)}{-x+c}
+  =g'(c)
+\]
+
+\hrulefill
+
+\textbf{Exercise 6.1 - 15}: Given that the restriction of the cosine
+function $\cos$ to $I:=[0,\pi]$ is strictly decreasing and that
+$\cos0=1,\cos\pi=-1$, let $J:=[-1,1]$, and let $\arccos: J\to\mathbb R$ be
+the function inverse to the restriction of $\cos$ to $I$. Show that the
+$\arccos$ is differentiable on $(-1,1)$ and $D \arccos y=-1/\sqrt{1-y^2}$
+for $y\in(-1,1)$. Show that $\arccos$ is not differentiable at $-1$ and $1$.
+
+\underline{\textit{Solution}}: Suppose that $x=\arccos y$. Then $\cos x=y$.
+Taking the derivative of both sides with respect to $y$ yields
+$-\sin y\times\frac{dx}{dy}=1$. Dividing through by $-\sin y$, we have our
+desired result:
+\[
+  \frac{d\arccos y}{dy}
+  =\frac{dx}{dy}=\frac{-1}{\sin y}
+  =\frac{-1}{\sqrt{1-\cos^2x}}
+  =\frac{-1}{\sqrt{1-y^2}}
+\]
+Clearly this is well defined for all $x\in(0,1)$. The derivative does not
+exist at $x=0$ or $x=1$ because $\arccos$ is not continuous there (0 and
+1 are endpoints).
+
+\hrulefill
+
+\textbf{Exercise 6.2 - 2}: Find the points of relative extrema, the
+intervals on which the following functions are increasing, and those on
+which they are decreasing. \textit{Since the problem asks to
+\underline{find} the values, I provide minimal explanation.}
+\begin{enumerate}[(a)]
+  \item $f(x):=x+1/x$ for $x\not=0$? $f$ has a relative maximum of -2 at
+    $x=-1$ and a relative minimum of 2 at $x=1$, both holding inside of 
+    $\delta=1/2$.  $f$ is increasing over $(\infty,-1)$ and $(1,\infty)$
+    and decreasing over $(-1,0)$ and $(0,1)$. Changes occur at -1 and 1
+    because $|1/x|>|x|$ only if $|x|<1$.
+  \item $g(x):=x/(x^2+1)$ for $x\in\mathbb{R}$? $g$ has a relative minimum
+    of -1/2 at $x=-1$ and a relative maximum of 1/2 at $x=1$, both holding
+    inside of $\delta=1/2$. $g$ is increasing on $(-1,1)$ and decreasing on
+    $(-\infty,-1)$ and $(1,\infty)$. Similar to $f$, -1 and 1 are critical
+    points because $|x|<x^2$ only if $|x|<1$.
+  \item $h(x):=\sqrt x-2\sqrt{2+x}$ for $x>0$? $h$ has a relative (and
+    absolute) maximum of $-\sqrt6$ at $x=2/3$, again holding within
+    $\delta=1/2$. $h$ has no relative minimums.
+    $h$ is increasing over $(0,2/3)$ and decreasing over $(2/3,\infty)$.
+  \item $k(x):=2x+1/x^2$ for $x\not=0$?
+    $k$ has no relative maximums, but does have a relative minimum of 3 at
+    $x=1$. $h$ increases over $(-\infty,0)$ and $(1,\infty)$ and decreases
+    over $(0,1)$. You might expect $x=-1$ to be a critical point because
+    of the $1/x^2$ term, but the curve is grabbed and pulled down by $2x$
+    and the function ends up being monotone through that point.
+\end{enumerate}
+
+\hrulefill
+
+\textbf{Exercise 6.2 - 4}: Let $a_1,a_2,\dots,a_n$ be real numbers and let 
+$f$ be defined on $\mathbb R$ by
+\[f(x):=\sum_{i=1}^n(a_i-x)^2\text{\ for\ }x\in\mathbb R.\]
+Find the unique point of relative minimum for $f$.
+
+\underline{\textit{Solution}}:
+Since $f(x)=\sum(x-a_i)^2=nx^2-2x\sum a_i+\sum a^2_i$ is a simple
+function of the form $ax^2+bx+c$, it has an absolute minimum of
+$-b/(2a)=(2\sum a_i)/(2n)=(\sum a_i)/n$.
+\hfill $\blacksquare$
+
+\hrulefill
+
+\textbf{Exercise 6.2 - 10}: Let $g:\mathbb R\to\mathbb R$ be defined by
+$g(x):=x+2x^2\sin(1/x)$ for $x\not=0$ and $g(0):=0$. Show that $g'(0)=1$,
+but in every neighborhood of 0 the derivative $g'(x)$ takes on both
+positive and negative values. Thus $g$ is not monotonic in any neighborhood
+of 0.
+
+\underline{\textit{Solution}}: \textit{With help from book hint.}
+The derivative at 0:
+\[
+  \lim_{x\to0}g'(x)
+  =\lim_{x\to0}D(x\times(1+2x\sin\frac1x))
+  =\lim_{x\to0}xD(1+2x\sin\frac1x)+1+2x\sin\frac1x
+  =\lim_{x\to0}1+2x\sin\frac1x
+  =1+0
+  =1
+\]
+The derivative elsewhere:
+\[
+  g'(x)
+  =D(x+2x^2\sin\frac1x)
+  =1+D(2x^2\sin\frac1x)
+  =1+4x\sin\frac1x+2x^2D(\sin\frac1x)
+  =1+4x\sin\frac1x-2\cos\frac1x
+\]
+Let $\delta>0$ and assume $\delta<1/10$. Then choose an $n$ such
+that $x:=1/(n\pi)<\delta$. Then clearly, depending on whether $n$ is odd
+or even, $g'(x)$ can be positive or negative.
+
+\hrulefill
+
+\textbf{Exercise 6.2 - 15}: Let $I$ be an interval. Prove that if $f$ is
+differentiable on $I$ and if the derivative $f'$ is bounded on $I$, then
+$f$ satisfies a Lipschitz condition on $I$.
+
+\underline{\textit{Solution}}: Let $x,c\in I$. Then, because the derivative
+is bounded, there exists a natural number $K$ so that
+$|\frac{f(x)-f(c)}{x-c}|<K$. A little algebra proves the result:
+\[
+  \left|\frac{f(x)-f(x)}{x-c}\right|
+  =\frac{|f(x)-f(c)|}{|x-c|}
+  <K
+  \Rightarrow |f(x)-f(c)|<K|x-c|
+\]
+
+\hrulefill
+
+\textbf{Exercise 6.3 - 8}: Evaluate the following limits:
+\begin{enumerate}[(a)]
+  \item $\lim_{x\to0}\frac{\arctan x}x\ (-\infty,\infty)$?
+    Applying L'Hospital's rule, we get
+    $\lim_{x\to0}\frac1{1+x^2}=1$.
+  \item $\lim_{x\to0}\frac1{x(\ln x)^2}\ (0,1)$? We can rewrite it as
+    $\frac{1/x}{(\ln x)^2}$ and apply L'Hospital to get
+    $\frac{-1/x^2}{2\ln x/x}=\frac{1}{2}\frac{1/x}{-\ln x}$. Applying
+  L'Hospital again, we have $\frac12\frac{-1/x^2}{-1/x}=\frac1{2x}$.
+  Finally, we get $\lim_{x\to0+}\frac1{2x}=\infty$.
+  \item $\lim_{x\to0+}x^3\ln x\ (0,\infty)$?
+    Rewrite as $\frac{\ln x}{1/x^3}$ and apply L'Hospital's rule to get
+    $\frac{1/x}{-3/x^4}=\frac{-x^3}{3}$ and we have
+    $\lim_{x\to0+}\frac{-x^3}{3}=0$.
+  \item $\lim_{x\to\infty}\frac{x^3}{e^3}\ (0,\infty)$? $\infty$.
+\end{enumerate}
+
+\hrulefill
+
+\textbf{Exercise 6.4 - 3}: Use induction to prove Leibniz's rule for the
+$n$th derivative of a product:
+\[(fg)^{(n)}(x)=\sum_{k=0}^n\binom nkf^{(n-k)}(x)g^{(k)}(x).\]
+
+\underline{\textit{Solution}}: Equality clearly holds for $n=1$. Now suppose
+that the equation is true for all $n\leq j$. We will show it also holds for
+$n=j+1$. For brevity, we omit the ``of x'' (x) and express differentiation
+with normal looking exponents.
+\begin{flalign*}
+  && (fg)^{j+1}&=\left((fg)^j\right)^{1} &\\
+  && &=\frac d{dx}\sum_{k=0}^j\binom jkf^{j-k}g^{k} &\\
+  && &=\sum_{k=0}^j\frac d{dx}\binom jkf^{j-k}g^{k} &\\
+  && &=\sum_{k=0}^j\binom jk\left(f^{j-k+1}g^{k}+f^{j-k}g^{k+1}\right) &\\
+  && &=\sum_{k=0}^{j+1}\binom{j+1}kf^{j-k+1}g^{k} &\blacksquare\\
+\end{flalign*}
+
+\hrulefill
+
+\textbf{Exercise 6.4 - 10}: Let $h(x):=e^{-1/x^2}$ for $x\not=0$ and
+$h(0):=0$. Show that $h^{(n)}(0)=0$ for all $n\in\mathbb N$. Conclude that
+the remainder term in Taylor's Theorem for $x_0=0$ does \textit{not}
+converge to zero as $n\to\infty$ for $x\not=0$. (hint in book)
+
+\underline{\textit{Solution}}:
+\begin{itemize}
+  \item Note the following:
+    \[
+      \lim_{x\to0}\frac{h(x)}{x^k}
+      =\lim_{x\to0}\frac{e^{-1/x^2}}{x^k}
+      =\footnote{L'Hospital's rule applies.}
+      \lim_{x\to0}\frac{\frac2{x^3}e^{-1/x^2}}{kx^{k-1}}
+      =\frac2k\lim_{x\to0}\frac{e^{-1/x^2}}{x^{k+2}}
+      \Rightarrow\lim_{x\to0}\frac{e^{-1/x^2}}{x^k}=0
+    \]
+    And since every $h^{(n)}(x)$ is some composition of products and
+    additions of $\frac{h(x)}{x^k}$, we know $h^{(n)}(0)=0$.
+  \item Let $n\in\mathbb{N}$. If we choose $x_0=0$, then
+    \[
+      h(x)
+      =h(0)+h'(0)x+\frac{h''(0)}{2!}x^2+\dots
+      +\frac{h^{(n)}(0)}{n!}x^n+\frac{h^{(n+1)}(c)}{(n+1)!}x^{n+1}
+      =\frac{h^{(n+1)}(c)}{(n+1)!}x^{n+1}
+    \]
+    In fact, the constant term is constant as $n$ increases, and hence
+    clearly does not converge to 0.
+\end{itemize}
+
+\hrulefill
+
+\textbf{Exercise 6.4 - 22}: The equation $\ln x=x-2$ has two solutions.
+Approximate them using Newton's Method. What happens if $x_1:=\frac12$ is
+the initial point?
+
+\underline{\textit{Solution}}: Put the equality in the form
+$\ln x-x+2=0$ and define $f(x):=\ln x-x+2$. Also define the recurrence
+\[x_{n+1}:=x_n-\frac{f(x_n)}{f'(x_n}=x_n-\frac{\ln x-x+2}{1/x-1}.\]
+Choosing $x_1=1/6$ gives the first four terms of
+$(0.166667,0.158352,0.158594,0.158594)$. Choosing $x_1=3$ gives
+$(3,3.14792,3.14619,3.14619)$. Hence, the two solutions are roughly
+$x=0.158954$ and $x=3.14619$.
+
+If $x_1=1/2$, then $x_2$ is negative and $x_3$ is complex.
+
+\hrulefill
+
+;)
+
+\end{document}
