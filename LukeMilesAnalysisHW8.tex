@@ -1,0 +1,285 @@
+\documentclass{article}
+
+\usepackage{graphicx} % for loading images
+\usepackage{amssymb} % for naturals, reals, etc
+\usepackage{enumerate} % for non-bullet lists
+\usepackage{amsmath} % for aligning equations
+\usepackage[in]{fullpage} % small margins
+\setlength{\parindent}{0pt} % don't indent paragraphs
+\pagenumbering{gobble} % don't number pages
+\linespread{1.5} % bigger line spacing
+
+\newcommand{\Pdot}{\dot{\mathcal P}}
+
+\title{Analysis HW 8}
+\author{Luke Miles}
+
+\begin{document}
+\raggedright % right-aligned instead of justified
+\renewcommand{\thefootnote}{\fnsymbol{footnote}} % cool looking footnotes
+
+\makeatletter
+\textsc{\@title\ - \@author\ - \@date}
+\hfill \includegraphics{Erdos-cropped.png}
+\makeatother
+
+\hrulefill
+
+%{\huge Section 7.1: Riemman Integral}
+
+\textbf{Exercise 7.1 - 6}:
+\begin{enumerate}[(a)]
+  \item Let $f(x) := 2$ if $0 \leq x < 1$ and $f(x) := 1$ if
+    $1 \leq x \leq 2$. Show that $f \in \mathcal R[0, 2]$ and evaluate its
+    integral.
+  \item Let $h(x) := 2$ if $0 \leq x \leq 1$, $h(1) := 3$ and $h(x) := 1$ if
+    $1<x\leq2$. Show that $h \in \mathcal R[0, 2]$ and evaluate its
+    integral.
+\end{enumerate}
+
+\underline{\textit{Solution}}:
+\begin{enumerate}[(a)]
+  \item Let $\varepsilon > 0$, choose $\delta = \varepsilon  / 3$, and let
+    $\Pdot$ be a tagged partition of $[0, 2]$ with $\|\Pdot\| < \delta$.
+    Now break $\Pdot$ into two pieces, $\Pdot_1$ with its tags in $[0, 1)$
+    and $\Pdot_2$ with its tags in $[1, 2]$. Then the value of any $x$ in
+    any interval in $\Pdot_1$ is less than $1 + \delta$ and hence the value
+    of $S(f, \Pdot_1)$ is less than $2 (1 + \delta)$. Likewise,
+    $S(f, \Pdot_2) \leq 1 + \delta$. Putting this all together:
+    \begin{flalign*}
+      &&&
+      |S(f, \Pdot) - 3|
+      = |S(f, \Pdot_1) + S(f, \Pdot_2) - 3|
+      < |2 (1 + \delta) + (1 + \delta) - 3|
+      = 3 \delta
+      = \varepsilon
+      & \blacksquare
+    \end{flalign*}
+%
+  \item
+    Do the same argument as for (a), but have 3 partitions. One whose tags
+    are in $[0, 1)$, one who just has the tag 1, and one whose tags are in
+    $(1, 2]$. Then $S$ of these three chunks can't exceed $2 (1 + \delta)$,
+    $3 \delta$, and $1 + \delta$ respectively. So their sum cannot exceed
+    $3 + 5 \delta$, and if we choose $\delta = \varepsilon / 5$, then 
+    $S$ of the whole is within $\varepsilon$ of 3. Hence the integral
+    exists and is 3.
+    \hfill $\blacksquare$
+\end{enumerate}
+
+\hrulefill
+
+\textbf{Exercise 7.1 - 9}:
+If $f \in \mathcal R[a, b]$ and if $(\Pdot_n)$ is any sequence of tagged
+partitions of $[a, b]$ such that $\|\Pdot_n\| \to 0$, prove that
+$\int_a^b f = \lim_n S(f, \Pdot_n)$.
+
+\underline{\textit{Solution}}:
+Suppose $\int_a^b f = L$. Then
+\[
+  \forall \varepsilon > 0:
+  \exists \delta > 0:
+  \forall \Pdot:
+  (\|\Pdot\| < \delta \longrightarrow |S(f, \Pdot) - L| < \varepsilon),
+\]
+where $\Pdot$ is a tagged partition over $[a,b]$. And since
+$\|\Pdot_n\| \to 0$, for any $\delta > 0$ we can choose a large enough $k$
+so that $\|\Pdot_k\| < \delta$ and hence $S(f, \Pdot)$ is within
+$\varepsilon$ of $L$. Taking the limit as $n \to \infty$, we reach
+equality.
+
+\hrulefill
+
+\textbf{Exercise 7.1 - 10}:
+Let $g(x) := 0$ if $x \in [0, 1]$ is rational and $g(x) := 1/x$ if
+$x \in [0, 1]$ is irrational. Explain why $g \notin \mathcal R [0, 1]$.
+However, show that there exists a sequence $(\Pdot_n)$ of tagged partitions
+of $[a, b]$ such that $\|\Pdot_n\| \to 0$ and $\lim_n S(g, \Pdot_n)$ exists.
+
+\underline{\textit{Solution}}:
+\begin{itemize}
+  \item Regardless of a chosen $L$, $\varepsilon$, and $\delta$, we know
+    $S(g, \Pdot) = 0$ if rational tags are chosen for $\Pdot$ and
+    $S(g, \Pdot) \geq 1$ if irrational tags are chosen. Since the Riemman
+    integral is unique, we have that $g \notin \mathcal R [0, 1]$.
+  \item Define $\Pdot_n$ to evenly split the interval $[a, b]$ into $n$
+    pieces of size $1/n$, with all rational tags. Then clearly
+    $\|\Pdot\| = 1/n$ goes to zero as $n$ goes to infinity. Furthermore,
+    for any $n$, $S(g, \Pdot)=0$.
+\end{itemize}
+
+\hrulefill
+
+\textbf{Exercise 7.1 - 14}: 
+Let $0 \leq a < b$, let $Q(x) := x^2$ for $x \in [a, b]$ and let
+$\mathcal P := \{[x_{i-1}, x_i]\}_{i=1}^n$ be a partition of $[a, b]$.
+For each $i$, let $q_i$ be the positive square root of
+$\frac{1}{3} (x_i^2 + x_i x_{i-1} + x^2_{i-1})$.
+\begin{enumerate}[(a)]
+  \item Show that $q_i$ satisfies $0 \leq x_{i-1} \leq q_i \leq x_i$.
+  \item Show that $Q(q_i) (x_i - x_{i-1})
+    = \frac{1}{3} (x_i^3 - x_{i-1}^3)$.
+  \item If $\dot{\mathcal Q}$ is the tagged partition with the same
+    subintervals as $\mathcal P$ and the tags $q_i$, show that
+    $S(Q, \dot{\mathcal Q}) = \frac{1}{3} (b^3 - a^3)$.
+  \item Show that $Q \in \mathcal R[a, b]$ and
+    $\int_a^b Q = \int_a^b x^2 dx = \frac{1}{3} (b^3 - a^3)$.
+\end{enumerate}
+
+\underline{\textit{Solution}}:
+
+\begin{enumerate}[(a)]
+  \item Expanding $q_i$, we have $0 \leq x_{i-1}
+    \leq \sqrt{\frac{1}{3} (x_i^2 + x_i x_{i-1} + x_{i-1}^2)} \leq x_i$.
+    The first inequality clearly holds because $0 \leq a$. To get the
+    second and third inequalities, we square\footnote{This is allowed
+    because everything is positive.} and multiply by three:
+    $3 x_{i-1} \leq x_i^2 + x_i x_{i-1} + x_{i-1}^2 \leq 3x_i^2$.
+    And this is clear enough if we keep in mind that $x_{i-1} < x_i$.
+  \item Just expand and simplify:
+    \[
+      Q(q_i) \cdot (x_i - x_{i-1})
+      = (x_i^2 + x_i x_{i-1} + x_{i-1}^2) / 3 \cdot (x_i - x_{i-1})
+      = \frac{1}{3} (x_i^3 - x_{i-1}^3)
+    \]
+  \item We get a telexcoping sum.
+    \[
+      S(Q, \dot{\mathcal Q})
+      = \sum Q(q_i) (x_i - x_{i-1})
+      = \sum (x_i^3 - x_{i-1}^3)/3
+      = (b^3 - a^3)/3
+    \]
+  \item For any $\varepsilon$, $\delta$, and $\Pdot$, $S$ is constant and
+    evaluates to $(b^3 - a^3)/3$.
+\end{enumerate}
+
+\hrulefill
+
+\textbf{Exercise 7.2 - 8}:
+Suppose that $f$ is continuous on $[a, b]$, that $f(x) \geq 0$ for all
+$x \in [a, b]$ and that $\int_a^b f = 0$. Prove that $f(x) = 0$ for all
+$x \in [a, b]$.
+
+\underline{\textit{Solution}}:
+Suppose that, for some $c \in [a, b]$, we have $f(c) > 0$. If, for some
+$\alpha > 0$, $\inf f([c-\alpha, c+\alpha]) > 0$, then clearly the integral
+would be nonzero.\footnote{Because $\int_{c-\alpha}^{c+\alpha} f > 0$ and
+there are no negative chunks to cancel it out.}
+So no such $\alpha$ exists and hence $c$ is a point of discontinuity and we
+have a contradiction.
+
+\hrulefill
+
+\textbf{Exercise 7.2 - 10}:
+If $f$ and $g$ are continuous on $[a, b]$ and if $\int_a^b f = \int_a^b g$,
+prove that there exists $c \in [a, b]$ such that $f(c) = g(c)$.
+
+\underline{\textit{Solution}}:
+If no such $c$ existed, then one function would have to be strictly greater
+than the other\footnote{intermediate value theorem} and their integrals
+would be different. Hence, $c$ must exist.
+
+\hrulefill
+
+\textbf{Exercise 7.2 - 12}:
+Show that $g(x) := \sin(1/x)$ for $x \in (0, 1]$ and $g(0) := 0$ belongs
+to $\mathcal R[0, 1]$.
+
+\underline{\textit{Solution}}:
+\textit{With help from book hint.}
+Note that $g$ is bounded by 1 on $[0,1]$ and that $\int_a^1 g$ exists for
+all $a \in (0, 1)$\footnote{continuous on closed interval}. Exercise 7.2 - 11 applies and we get that
+$g \in \mathcal R[a, b]$.
+
+\hrulefill
+
+\textbf{Exercise 7.2 - 13}:
+Give an example of a function $f : [a, b] \to \mathbb R$ that is in
+$\mathcal R[c, b]$ for every $c \in (a, b)$ but which is not in
+$\mathcal R[a, b]$.
+ 
+\underline{\textit{Solution}}:
+$f(x) := 1/x$ with $a := 0, b := 1$ works.  $f$ is clearly in
+$\mathcal R[c, 1]$ for all $c \in (0, 1)$ because it is a continuous
+function over a closed interval. And since $\int_c^1 f$ gets arbitrarily
+large as $c$ approaches $0$ from the right\footnote{This can be seen with a
+geometric argument where you draw rectangles of width $1/(n-1) - 1/n$ and
+height $n$, with a combined area as big as you want. Alternatively, for any $\alpha > 0$, choose $a = e^{-\alpha}$.}, $\int_0^1 f$ can not exist.
+
+\hrulefill
+
+\textbf{Exercise 7.2 - 18}:
+Let $f$ be continuous on $[a, b]$, let $f(x) \geq 0$ for $x \in [a, b]$, and
+let $M_n := (\int_a^b f^n) ^ {1/n}$. Show that
+$\lim (M_n) = \sup \{f(x) : x \in [a, b]\}$.
+
+\underline{\textit{Solution}}:
+skipped
+
+\hrulefill
+
+\textbf{Exercise 7.3 - 8}:
+Let $F(x)$ be defined for $x \geq 0$ by $F(x) := (n-1)x - (n-1)n/2$ for
+$x \in [n-1, n), n \in \mathbb N$. Show that $F$ is continuous and evaluate
+$F'(x)$ at points where this derivative exists. Use this result to evaluate
+$\int_a^b [x] dx$ for  $0 \leq a < b$, where $[x]$ is the floor of $x$.
+
+\underline{\textit{Solution}}:
+If $x \in (n-1, n)$ then $F$ is linear and hence continuous.\\
+We will show $f$ is also continuous at $x = n$:
+\[
+  \lim_{x \to n-} F(x)
+  = \lim_{x \to n-} ((n-1)x - (n-1)n/2)
+  = (n-1)n - (n-1)n/2
+  = ((n+1)-1)n - ((n+1)-1)(n+1)/2
+  = F(n)
+\]
+$F'(x) = n-1 = [x]$ and exists only when $x \in (n-1, n)$. By the
+fundamental theorem of calculus etc:
+\[\int_a^b [x] dx = \int_a^b F'(x) = F(b) - F(a)\]
+
+\hrulefill
+
+\textbf{Exercise 7.3 - 10}:
+Let $f : [a, b] \to \mathbb R$ be continuous on $[a, b]$ and let
+$v : [c, d] \to \mathbb R$ be differentiable on $[c, d]$ with
+$v([c, d]) \subseteq [a, b]$. If we define $G(x) := \int_a^{v(x)} f$, show
+that $G'(x) = f(v(x)) \cdot v'(x)$ for all $x \in [c, d]$.
+
+\underline{\textit{Solution}}:
+Since $f \in \mathcal R[a, b]$, we can choose a function $F$ so that
+$F'(x) = f(x)$ for all $x \in [a, b]$. Then
+\[
+  \frac{d}{dx} \int_a^{v(x)} f(x) dx
+  = \frac{d}{dx} (F(v(x)) - F(a))
+  = \left( \frac{d}{dx} F(v(x)) \right) - \left( \frac{d}{dx} F(a) \right)
+  = \footnote{Chain rule on first term, second term is zero.}
+    f(v(x)) \cdot v'(x)
+\]
+
+\hrulefill
+
+\textbf{Exercise 7.3 - 14}:
+Show there does not exist a continuously differentiable function $f$ on
+$[0, 2]$ such that $f(0) = -1$, $f(2) = 4$, and $f'(x) \leq 2$ for
+$0 \leq x \leq 2$.
+
+\underline{\textit{Solution}}:
+In general, if $g(x) \leq h(x)$ for all $x$ in $[a, b]$, then
+$\int_a^b g \leq \int_a^b h$. But if the described $f$ existed then
+we'd have $2 \geq f'(x)$ and $\int_0^2 2 = 4 < 5 = \int_0^2 f'(x)$ which is
+ridiculous.
+
+\hrulefill
+
+\textbf{Exercise 4.3 - 16}:
+If $f : [0, 1] \to \mathbb R$ is continuous and $\int_0^x f = \int_x^1 f$
+for all $x \in [0, 1]$, show that $f(x) = 0$ for all $x \in [0, 1]$.
+
+\underline{\textit{Solution}}:
+If $\int_0^x f = \int_x^1 f$ then there exists an $F$ so that
+$F(x) - F(0) = F(1) - F(x)$ and hence $2F(x) = F(1) - F(0)$. Taking $d/dx$
+of both sides, we have $2f(x) = 0$ and hence $f(x) = 0$ for all
+$x \in [0, 1]$.
+
+\end{document}
