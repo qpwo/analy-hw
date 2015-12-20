@@ -1,0 +1,121 @@
+\documentclass{article}
+
+\usepackage{graphicx} % for loading images
+\usepackage{amssymb} % for naturals, reals, etc
+\usepackage{enumerate} % for non-bullet lists
+\usepackage{amsmath} % for aligning equations
+\usepackage[in]{fullpage} % small margins
+\setlength{\parindent}{0pt} % don't indent paragraphs
+\pagenumbering{gobble} % don't number pages
+\linespread{1.5} % bigger line spacing
+
+\newcommand{\sP}{\mathcal P}
+
+\title{Analysis HW 9}
+\author{Luke Miles}
+
+\begin{document}
+\raggedright % right-aligned instead of justified
+\renewcommand{\thefootnote}{\fnsymbol{footnote}} % cool looking footnotes
+
+\makeatletter
+\textsc{\@title\ - \@author\ - \@date}
+
+Last homework!!! \hfill \includegraphics{Cantor-floating}
+\makeatother
+
+\hrulefill
+
+\textbf{Exercise 7.3 - 21}:
+Let $f, g \in \mathcal R[a, b]$.
+\begin{enumerate}[(a)]
+  \item If $t \in \mathbb R$, show that $\int_a^b (t f \pm g)^2 \geq 0$.
+  \item Use (a) to show that $2 \left| \int_a^b f g \right|
+    \leq t \int_a^b f^2 + (1/t) \int_a^b g^2$
+  \item If $\int_a^b f^2 = 0$, show that $\int_a^b f g = 0$.
+  \item Now prove that $\left| \int_a^b f g \right|^2
+    \leq \left( \int_a^b |f g| \right)^2
+    \leq \left( \int_a^b f^2 \right) \cdot \left( \int_a^b g^2 \right)$.
+    This is called the Cauchy-Bunyakovsky-Milkshake-Schwarz Inequality.
+\end{enumerate}
+
+\underline{\textit{Solution}}:
+For brevity, we omit the limits on the integrals.
+\begin{enumerate}[(a)]
+  \item Clearly $(t f(x) \pm g(x))^2 \geq 0$ for all $x \in [a, b]$.
+    Integrating both sides gives the result.
+  \item $%\displaystyle
+    0
+    \leq \int (t f \pm g)^2
+    = \int (t^2 f^2 \pm 2tfg + g^2)
+    = t^2 (\int f^2) \pm  2t (\int f g) + (\int g^2)
+    \rightarrow
+    \pm 2 (\int f g)
+    \leq t (\int f^2) + \frac{1}{t} (\int g^2)
+    $
+    The conclusion follows.
+  \item Since $f^2 \geq 0$, $\int f^2 = 0$ means that $f(x) = 0$ for all
+    $x$. The conclusion follows.
+  \item \textit{(With help from book hint.)} If $\int f^2 = 0$ then
+    everything is zero. Otherwise, letting
+    $t = \sqrt{\int g^2 / \int f^2}$ in (b) yields
+    $2 | \int f g | \leq \sqrt{\int g^2 / \int f^2} \int f^2
+    + \sqrt{\int f^2 / \int g^2} \int g^2 = 2 \sqrt{\int g^2 \int f^2}$.
+    Dividing both sides by 2 and squaring shows the first is $\leq$
+    the third. The second is sandwhiched in their for semi-obvious reasons.
+\end{enumerate}
+
+\hrulefill
+
+\textbf{Exercise 7.4 - 5}:
+Let $f, g, h$ be bounded functions on $I := [a, b]$ such that
+$f(x) \leq g(x) \leq h(x)$ for all $x \in I$. Show that if $f$ and $h$ are
+Darboux integrable and if $\int_a^b f = \int_a^b h$, then $g$ is also
+Darboux integrable with $\int_a^b g = \int_a^b f$.
+
+\underline{\textit{Solution}}:
+Let $\sP$ be any partition of $[a, b]$. Then clearly
+$L(f, \sP) \leq U(g, \sP)$ and $L(g, \sP) \leq U(h, \sP)$. Hence,
+$L(f) \leq U(g)$ and $L(g) \leq U(h)$. And since
+$L(f) = U(h)$\footnote{Because $\int_a^b g = \int_a^b f$}, we have
+$U(g) = L(g)$ and hence $g$ is Darboux integrable.
+
+\hrulefill
+
+\textbf{Exercise 7.4 - 6}:
+Let $f$ be defined on $[0, 2]$ by $f(x) := 1$ if $x \not= 1$ and
+$f(1) := 0$. Show that the Darboux integral exists and find its value.
+
+\underline{\textit{Solution}}:
+Let $\varepsilon > 0$ and define the interval
+$\sP = (0, 1 - \varepsilon, 1)$. Then
+$L(f, \sP) = 1 \cdot ((1 - \varepsilon) - 0)
++ 0 \cdot (1 - (1 - \varepsilon)) = 1 - \varepsilon$ and
+$U(f, \sP) = 1 \cdot ((1 - \varepsilon) - 0)
++ 1 \cdot (1 - (1 - \varepsilon)) = 1$. Clearly $L$ and $U$ can get
+arbitrarily close to eachother (centering in on 1) by shrinking
+$\varepsilon$, so $f$ is Darboux integrable and its value is 1.
+
+\hrulefill
+
+\textbf{Exercise 7.4 - 7}:
+\begin{enumerate}[(a)]
+  \item Prove that if $g(x) := 0$ for $0 \leq x \leq 1/2$ and
+    $g(x) := 1$ for $1/2 < x \leq 1$, then the Darboux integral of
+    $g$ on $[0, 1]$ is equal to $1/2$.
+  \item Does the conclusion hold if we change the value of $g$ at the point
+    $1/2$ to 13?
+\end{enumerate}
+
+\underline{\textit{Solution}}:
+\begin{enumerate}[(a)]
+  \item Let $\varepsilon > 0$ and define
+    $\sP := (0, 1/2 - \varepsilon, 1/2 + \varepsilon, 1)$. Then
+    $U(g, \sP) = 1/2 + \varepsilon$ and $L(g, \sP) = 1/2 - \varepsilon$.
+    Then they get arbitrarily close and $L(g) = 1/2 = U(g)$.
+  \item Yes. There is the difference is that
+    $U(g, \sP) = 1/2 + 25\varepsilon$, but you can choose an even smaller
+    $\varepsilon$.
+\end{enumerate}
+
+\end{document}
